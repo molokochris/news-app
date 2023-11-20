@@ -20,7 +20,7 @@ export default function Home() {
   const width = 0.98 * Dimensions.get("window").width;
   const [latestNews, setLatestNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [latestNewsImages, setLatestNewsImages] = useState([]);
+  const [countryLatestNews, setCountryLatestNews] = useState([]);
 
   const apiKey = "pub_33040b9785391b611009e8baa5fa226a800d4";
   let data = [];
@@ -41,6 +41,38 @@ export default function Home() {
       "X-RapidAPI-Host": "newsi-api.p.rapidapi.com",
     },
   };
+  const saOptions = {
+    method: "GET",
+    url: "http://api.mediastack.com/v1/news",
+    params: {
+      category: "world",
+      language: "en",
+      country: "za",
+      sort: "top",
+      page: "1",
+      limit: "20",
+    },
+    headers: {
+      access_key: "ae5c9648f0ca48661b64b2ed40bf43b5",
+      // "X-RapidAPI-Host": "newsi-api.p.rapidapi.com",
+    },
+  };
+
+  async function latestCountry() {
+    const apiKey = "ae5c9648f0ca48661b64b2ed40bf43b5";
+    try {
+      const response = await axios.request(
+        `http://api.mediastack.com/v1/news?access_key=${apiKey}&countries=za`
+      );
+      // const response = await axios.request(saOptions);
+      console.log("SA Data : ", response.data);
+      setCountryLatestNews(response.data);
+      // setCountryLatest(response)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // axios({
   //   method: "get",
   //   url: `https://newsdata.io/api/1/news?apikey=${apiKey}`,
@@ -85,7 +117,7 @@ export default function Home() {
     try {
       const response = await axios.request(options);
       setLatestNews(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -95,7 +127,8 @@ export default function Home() {
     return new Date(time * 1000);
   };
   useEffect(() => {
-    getLatestNews();
+    // getLatestNews();
+    // latestCountry();
   }, []);
   return (
     <View style={{ flex: 1, backgroundColor: "whitesmoke" }}>
@@ -309,7 +342,7 @@ export default function Home() {
                 autoPlay={true}
                 data={latestNews}
                 scrollAnimationDuration={3500}
-                onSnapToItem={(index) => console.log("current index:", index)}
+                // onSnapToItem={(index) => console.log("current index:", index)}
                 renderItem={({ index }) => (
                   // <View
                   //   style={{
@@ -403,8 +436,38 @@ export default function Home() {
               paddingHorizontal: 10,
             }}
           >
-            <View>
-              <Text style={{ fontSize: 16 }}>Top News</Text>
+            <View style={{ paddingVertical: 10 }}>
+              <Text style={{ fontSize: 16 }}>Top SA News</Text>
+              {/* <Button title="get Latest" onPress={latestCountry} /> */}
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: 100,
+                backgroundColor: "red",
+                padding: 10,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ flex: 2 }}>
+                <Text>Head</Text>
+                <Text>sub</Text>
+                <Text>Description</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: "gray",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Text>Image</Text>
+              </View>
             </View>
           </View>
         </View>
