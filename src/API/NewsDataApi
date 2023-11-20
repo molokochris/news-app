@@ -1,0 +1,10 @@
+import axios from 'axios'
+
+  const baseURL = `https://newsdata.io/api/1/news`;
+
+  // const axios = require("axios");${apiKey}&q=pizza
+
+export const newsDataApi = axios.create({
+    baseURL: baseURL,
+    timeout: 1000
+})
