@@ -57,15 +57,16 @@ export default function Home() {
       // "X-RapidAPI-Host": "newsi-api.p.rapidapi.com",
     },
   };
-
+  let res = [];
   async function latestCountry() {
-    const apiKey = "ae5c9648f0ca48661b64b2ed40bf43b5";
+    const apiKey = "19179b84ed47ea8c346b4e4a9a8890e3";
     try {
       const response = await axios.request(
         `http://api.mediastack.com/v1/news?access_key=${apiKey}&countries=za`
       );
       // const response = await axios.request(saOptions);
-      console.log("SA Data : ", response.data);
+      // console.log("SA Data : ", response.data);
+      res.push(response.data);
       setCountryLatestNews(response.data);
       // setCountryLatest(response)
     } catch (error) {
@@ -129,6 +130,8 @@ export default function Home() {
   useEffect(() => {
     // getLatestNews();
     // latestCountry();
+    console.log("Done");
+    console.log("clg log: ", countryLatestNews);
   }, []);
   return (
     <View style={{ flex: 1, backgroundColor: "whitesmoke" }}>
@@ -440,6 +443,7 @@ export default function Home() {
               <Text style={{ fontSize: 16 }}>Top SA News</Text>
               {/* <Button title="get Latest" onPress={latestCountry} /> */}
             </View>
+            {/* {latestCountry.} */}
             <View
               style={{
                 width: "100%",
@@ -449,12 +453,14 @@ export default function Home() {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
+                marginBottom: 5,
               }}
             >
               <View style={{ flex: 2 }}>
                 <Text>Head</Text>
-                <Text>sub</Text>
-                <Text>Description</Text>
+                <Text>{countryLatestNews[0]}</Text>
+                {/* <Text>sub</Text>
+                <Text>Description</Text> */}
               </View>
               <View
                 style={{
@@ -470,6 +476,7 @@ export default function Home() {
               </View>
             </View>
           </View>
+          <Button title="get keys" />
         </View>
       </ScrollView>
     </View>
