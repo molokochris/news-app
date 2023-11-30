@@ -14,6 +14,7 @@ import { Pressable } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Icon } from "@rneui/base";
 import axios from "axios";
+// import { useDispatch } from "react-redux";
 // import { baseURL, timeout } from "../API/NewsDataApi";
 
 export default function Home() {
@@ -65,7 +66,7 @@ export default function Home() {
         `http://api.mediastack.com/v1/news?access_key=${apiKey}&countries=za`
       );
       // const response = await axios.request(saOptions);
-      // console.log("SA Data : ", response.data);
+      console.log("SA Data : ", response.data);
       res.push(response.data);
       setCountryLatestNews(response.data);
       // setCountryLatest(response)
@@ -90,27 +91,27 @@ export default function Home() {
 
   {
     /*NewsData.io api request*/
-    // axios
-    //   .get(`https://newsdata.io/api/1/news?apikey=${apiKey}&country=za`)
-    //   .then((response) => {
-    //     data = response.data;
-    //     // console.log(data.results);
-    //     let latestNewsImages = data.results.map((article) => {
-    //       if (article.image_url !== null || article.image_url !== undefined) {
-    //         return article.image_url;
-    //       }
-    //     });
-    //     // .filter((article) => {
-    //     //   return article.image_url !== null;
-    //     // });
-    //     // setLatestNewsImages(latestNewsImages);
-    //     setLatestNews(response.data.results);
-    //     console.log(latestNewsImages);
-    //     setLoading(false);
-    //     // console.log(response.data);
-    //   });
-    // }
+    axios
+      .get(`https://newsdata.io/api/1/news?apikey=${apiKey}&country=za`)
+      .then((response) => {
+        data = response.data;
+        // console.log(data.results);
+        let latestNewsImages = data.results.map((article) => {
+          if (article.image_url !== null || article.image_url !== undefined) {
+            return article.image_url;
+          }
+        });
+        // .filter((article) => {
+        //   return article.image_url !== null;
+        // });
+        // setLatestNewsImages(latestNewsImages);
+        setLatestNews(response.data.results);
+        console.log(latestNewsImages);
+        setLoading(false);
+        // console.log(response.data);
+      });
   }
+  // }
   async function getLatestNews() {
     {
       /* newsi api request */
@@ -131,8 +132,24 @@ export default function Home() {
     // getLatestNews();
     // latestCountry();
     console.log("Done");
-    console.log("clg log: ", countryLatestNews);
+    // console.log("clg log: ", countryLatestNews);
   }, []);
+
+  // Get Articles
+  // const handleAddItem = () => {
+  // const articles = countryData;
+  // const newItem = {
+  //   id: Date.now().toString(),
+  //   name: itemName,
+  //   store: storeName,
+  //   category: category,
+  //   image,
+  //   price: parseFloat(price),
+  //   quantity: parseInt(quantity),
+  // };
+
+  // dispatch(addItem(newItem));
+  // };
   return (
     <View style={{ flex: 1, backgroundColor: "whitesmoke" }}>
       <StatusBar
@@ -458,7 +475,7 @@ export default function Home() {
             >
               <View style={{ flex: 2 }}>
                 <Text>Head</Text>
-                <Text>{countryLatestNews[0]}</Text>
+                {/* <Text>{countryLatestNews.data[0].title}</Text> */}
                 {/* <Text>sub</Text>
                 <Text>Description</Text> */}
               </View>
@@ -476,7 +493,7 @@ export default function Home() {
               </View>
             </View>
           </View>
-          <Button title="get keys" />
+          {/* <Button title="get keys" onPress={latestCountry} /> */}
         </View>
       </ScrollView>
     </View>
