@@ -177,8 +177,12 @@ export default function Home({ navigation }) {
                 flexDirection: "row",
               }}
             >
-              <Icon name="location" type="ionicon" color="tomato" size={15} />
-              <Text style={{ color: "gray" }}>Plk, Koloti</Text>
+              <Icon
+                name="hacker-news"
+                type="font-awesome"
+                color="gray"
+                size={30}
+              />
             </View>
             <Pressable
               style={{
