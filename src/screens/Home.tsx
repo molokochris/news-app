@@ -145,7 +145,7 @@ export default function Home({ navigation }) {
         barStyle="dark-content"
         backgroundColor="whitesmoke"
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, alignItems: "center", paddingVertical: 10 }}>
           <View
             style={{
@@ -374,6 +374,11 @@ export default function Home({ navigation }) {
                         {/* {latestNews[index].sourceName} */}
                       </Text>
                       <Text
+                        onPress={() =>
+                          navigation.navigate("View", {
+                            article: countryData.data[index],
+                          })
+                        }
                         style={{
                           // textAlign: "center",
                           fontSize: 18,
