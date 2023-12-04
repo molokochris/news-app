@@ -24,7 +24,7 @@ import { addItem } from "../Redux/reducers";
 export default function Home({ navigation }) {
   const width = 0.98 * Dimensions.get("window").width;
   const [latestNews, setLatestNews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const countryLatestNews = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -334,12 +334,14 @@ export default function Home({ navigation }) {
                 width={width}
                 height={width}
                 autoPlay={true}
-                data={latestNews}
+                data={countryData.data}
+                // data={latestNews}
                 scrollAnimationDuration={3500}
                 // onSnapToItem={(index) => console.log("current index:", index)}
                 renderItem={({ index }) => (
                   <ImageBackground
-                    source={{ uri: latestNews[index].image }}
+                    source={{ uri: countryData.data[index].image }}
+                    // source={{ uri: latestNews[index].image }}
                     resizeMode="cover"
                     style={{
                       flex: 1,
@@ -368,21 +370,24 @@ export default function Home({ navigation }) {
                           // marginLeft: 12,
                         }}
                       >
-                        {latestNews[index].sourceName}
+                        {countryData.data[index].author}
+                        {/* {latestNews[index].sourceName} */}
                       </Text>
                       <Text
                         style={{
                           // textAlign: "center",
                           fontSize: 18,
                           color:
-                            latestNews[index].image == null
-                              ? "red"
+                            countryData.data[index].image == null
+                              ? // latestNews[index].image == null
+                                "red"
                               : "whitesmoke",
                           textAlign: "center",
                         }}
                       >
                         {/* {index} */}
-                        {latestNews[index].title}
+                        {countryData.data[index].title}
+                        {/* {latestNews[index].title} */}
                       </Text>
                       <View
                         style={{
@@ -393,7 +398,8 @@ export default function Home({ navigation }) {
                         }}
                       >
                         <Text style={{ color: "gray", fontSize: 12 }}>
-                          {latestNews[index].publishedAt}
+                          {countryData.data[index].publishedAt}
+                          {/* {latestNews[index].publishedAt} */}
                         </Text>
                       </View>
                     </View>
@@ -407,7 +413,7 @@ export default function Home({ navigation }) {
             style={{
               flex: 1,
               paddingVertical: 10,
-              backgroundColor: "yellow",
+              // backgroundColor: "yellow",
               width: "100%",
               paddingHorizontal: 10,
             }}
@@ -426,12 +432,14 @@ export default function Home({ navigation }) {
                   style={{
                     width: "100%",
                     height: 100,
-                    backgroundColor: "red",
+                    // backgroundColor: "red",
+                    backgroundColor: "white",
                     padding: 10,
                     flexDirection: "row",
                     justifyContent: "center",
                     alignItems: "center",
                     marginBottom: 5,
+                    borderRadius: 8,
                   }}
                 >
                   <View style={{ flex: 2 }}>
